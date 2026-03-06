@@ -45,7 +45,7 @@ export default function FilterBar({ onApplyFilters, isLoading, isOpen, setIsOpen
   useEffect(() => {
     const loadTags = async () => {
       const allTags = await fetchTags();
-      setTags(allTags.filter(t => t && t.length < 15).slice(0, 40));
+      setTags(allTags.filter(t => t && t.length < 15));
     };
     loadTags();
   }, []);
@@ -132,45 +132,45 @@ export default function FilterBar({ onApplyFilters, isLoading, isOpen, setIsOpen
               initial={{ opacity: 0, y: 100, scale: 0.9 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 100, scale: 0.9 }}
-              className="fixed inset-x-4 bottom-4 md:inset-x-0 md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:max-w-2xl md:mx-auto bg-white rounded-[3rem] shadow-[0_32px_128px_rgba(0,0,0,0.3)] z-[70] overflow-hidden flex flex-col max-h-[90vh]"
+              className="fixed inset-x-4 bottom-4 md:inset-x-0 md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:max-w-2xl lg:max-w-4xl md:mx-auto bg-white rounded-[3rem] shadow-[0_32px_128px_rgba(0,0,0,0.3)] z-[70] overflow-hidden flex flex-col max-h-[90vh]"
             >
               {/* Header */}
-              <div className="p-8 border-b border-purple-50 flex items-center justify-between bg-gradient-to-r from-purple-50 to-pink-50">
+              <div className="p-8 lg:p-12 border-b border-purple-50 flex items-center justify-between bg-gradient-to-r from-purple-50 to-pink-50">
                 <div>
-                  <h2 className="text-3xl font-black text-purple-900 tracking-tight">Cat Customizer</h2>
-                  <p className="text-sm text-purple-500 font-bold mt-1">Advanced discovery & image filtering</p>
+                  <h2 className="text-3xl lg:text-5xl font-black text-purple-900 tracking-tight">Cat Customizer</h2>
+                  <p className="text-sm lg:text-lg text-purple-500 font-bold mt-1">Advanced discovery & image filtering</p>
                 </div>
                 <button 
                   onClick={() => setIsOpen(false)}
-                  className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-purple-400 hover:text-purple-900 shadow-sm transition-colors border border-purple-100"
+                  className="w-12 h-12 lg:w-16 lg:h-16 bg-white rounded-2xl flex items-center justify-center text-purple-400 hover:text-purple-900 shadow-sm transition-colors border border-purple-100"
                 >
-                  <X size={24} />
+                  <X className="w-6 h-6 lg:w-8 lg:h-8" />
                 </button>
               </div>
 
               {/* Scrollable Body */}
-              <div className="flex-1 overflow-y-auto p-8 space-y-10 custom-scrollbar pb-32">
+              <div className="flex-1 overflow-y-auto p-8 lg:p-12 space-y-10 lg:space-y-16 custom-scrollbar pb-32 lg:pb-40">
                 
                 {/* Mode & Category */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10">
                   {/* Effects Toggle */}
-                  <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-[2.5rem] border-2 border-blue-100/50 flex-1">
-                    <div className="flex flex-col gap-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-12 h-12 rounded-2xl bg-white flex items-center justify-center text-blue-500 shadow-lg border border-blue-50">
-                          <PaletteIcon size={24} />
+                  <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 lg:p-10 rounded-[2.5rem] border-2 border-blue-100/50 flex-1">
+                    <div className="flex flex-col gap-4 lg:gap-6">
+                      <div className="flex items-center gap-3 lg:gap-5">
+                        <div className="w-12 h-12 lg:w-16 lg:h-16 rounded-2xl bg-white flex items-center justify-center text-blue-500 shadow-lg border border-blue-50">
+                          <PaletteIcon className="w-6 h-6 lg:w-8 lg:h-8" />
                         </div>
                         <div>
-                          <h3 className="text-lg font-black text-blue-900 leading-none">Photo Effects</h3>
-                          <p className="text-[10px] text-blue-700/60 font-bold mt-1 uppercase tracking-wider">Presets</p>
+                          <h3 className="text-lg lg:text-2xl font-black text-blue-900 leading-none">Photo Effects</h3>
+                          <p className="text-[10px] lg:text-xs text-blue-700/60 font-bold mt-1 uppercase tracking-wider">Presets</p>
                         </div>
                       </div>
-                      <div className="flex flex-wrap gap-2">
+                      <div className="flex flex-wrap gap-2 lg:gap-3">
                         {['', 'mono', 'blur', 'negate'].map((f) => (
                           <button
                             key={f}
                             onClick={() => setSelectedFilter(f)}
-                            className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border-2 ${
+                            className={`px-4 py-2 lg:px-6 lg:py-3 rounded-xl lg:rounded-2xl text-[10px] lg:text-xs font-black uppercase tracking-widest transition-all border-2 ${
                               selectedFilter === f 
                               ? 'bg-blue-600 text-white border-blue-400 shadow-lg' 
                               : 'bg-white text-blue-500 border-blue-50 hover:bg-blue-50'
@@ -186,20 +186,20 @@ export default function FilterBar({ onApplyFilters, isLoading, isOpen, setIsOpen
 
                 {/* HSL Controls */}
                 <section>
-                  <label className="flex items-center gap-2 text-xs font-black uppercase tracking-[.2em] text-purple-400 mb-6 ml-2">
-                    <Sliders size={14} /> Style Adjustments (HSL)
+                  <label className="flex items-center gap-2 text-xs lg:text-base font-black uppercase tracking-[.2em] text-purple-400 mb-6 lg:mb-10 ml-2">
+                    <Sliders className="w-3.5 h-3.5 lg:w-5 lg:h-5" /> Style Adjustments (HSL)
                   </label>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6 px-2">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 lg:gap-x-20 gap-y-6 lg:gap-y-10 px-2 lg:px-4">
                     {[
                       { label: 'Brightness', val: brightness, set: setBrightness, min: -1, max: 1, step: 0.1 },
                       { label: 'Saturation', val: saturation, set: setSaturation, min: 0, max: 2, step: 0.1 },
                       { label: 'Hue', val: hue, set: setHue, min: 0, max: 360, step: 1 },
                       { label: 'Lightness', val: lightness, set: setLightness, min: -1, max: 1, step: 0.1 }
                     ].map(ctrl => (
-                      <div key={ctrl.label} className="space-y-3">
-                        <div className="flex justify-between items-center text-[10px] font-black text-purple-900 border-l-2 border-purple-200 pl-3">
+                      <div key={ctrl.label} className="space-y-3 lg:space-y-5">
+                        <div className="flex justify-between items-center text-[10px] lg:text-sm font-black text-purple-900 border-l-2 lg:border-l-4 border-purple-200 pl-3 lg:pl-5">
                           <span>{ctrl.label.toUpperCase()}</span>
-                          <span className="text-purple-400 bg-purple-50 px-2 py-0.5 rounded-md">
+                          <span className="text-purple-400 bg-purple-50 px-2 lg:px-3 py-0.5 lg:py-1 rounded-md lg:rounded-lg">
                             {ctrl.val !== undefined ? ctrl.val : 'Auto'}
                           </span>
                         </div>
@@ -208,7 +208,7 @@ export default function FilterBar({ onApplyFilters, isLoading, isOpen, setIsOpen
                           min={ctrl.min} max={ctrl.max} step={ctrl.step} 
                           value={ctrl.val ?? (ctrl.max + ctrl.min) / 2}
                           onChange={(e) => ctrl.set(parseFloat(e.target.value))}
-                          className="w-full accent-purple-600 h-1.5 bg-purple-50 rounded-full cursor-pointer"
+                          className="w-full accent-purple-600 h-1.5 lg:h-2.5 bg-purple-50 rounded-full cursor-pointer"
                         />
                       </div>
                     ))}
@@ -217,19 +217,19 @@ export default function FilterBar({ onApplyFilters, isLoading, isOpen, setIsOpen
 
                 {/* RGB Controls */}
                 <section>
-                  <label className="flex items-center gap-2 text-xs font-black uppercase tracking-[.2em] text-pink-400 mb-6 ml-2">
-                    <Palette size={14} /> Color Filtering (RGB)
+                  <label className="flex items-center gap-2 text-xs lg:text-base font-black uppercase tracking-[.2em] text-pink-400 mb-6 lg:mb-10 ml-2">
+                    <Palette className="w-3.5 h-3.5 lg:w-5 lg:h-5" /> Color Filtering (RGB)
                   </label>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 px-2">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-10 px-2 lg:px-4">
                     {[
                       { label: 'Red', val: red, set: setRed, color: 'bg-red-500' },
                       { label: 'Green', val: green, set: setGreen, color: 'bg-green-500' },
                       { label: 'Blue', val: blue, set: setBlue, color: 'bg-blue-500' }
                     ].map(ctrl => (
-                      <div key={ctrl.label} className="space-y-3">
-                        <div className="flex justify-between items-center text-[10px] font-black text-gray-900">
-                          <span className="flex items-center gap-2">
-                            <span className={`w-2 h-2 rounded-full ${ctrl.color}`} />
+                      <div key={ctrl.label} className="space-y-3 lg:space-y-5">
+                        <div className="flex justify-between items-center text-[10px] lg:text-sm font-black text-gray-900">
+                          <span className="flex items-center gap-2 lg:gap-3">
+                            <span className={`w-2 h-2 lg:w-3 lg:h-3 rounded-full ${ctrl.color}`} />
                             {ctrl.label.toUpperCase()}
                           </span>
                           <span className="text-gray-400">{ctrl.val ?? 'Off'}</span>
@@ -238,7 +238,7 @@ export default function FilterBar({ onApplyFilters, isLoading, isOpen, setIsOpen
                           type="range" min="0" max="255"
                           value={ctrl.val ?? 128}
                           onChange={(e) => ctrl.set(parseInt(e.target.value))}
-                          className={`w-full h-1.5 bg-gray-100 rounded-full cursor-pointer accent-gray-900`}
+                          className={`w-full h-1.5 lg:h-2.5 bg-gray-100 rounded-full cursor-pointer accent-gray-900`}
                         />
                       </div>
                     ))}
@@ -247,38 +247,38 @@ export default function FilterBar({ onApplyFilters, isLoading, isOpen, setIsOpen
 
                 {/* Dimensions */}
                 <section>
-                  <label className="flex items-center gap-2 text-xs font-black uppercase tracking-[.2em] text-blue-400 mb-6 ml-2">
-                    <Maximize size={14} /> Specific Dimensions
+                  <label className="flex items-center gap-2 text-xs lg:text-base font-black uppercase tracking-[.2em] text-blue-400 mb-6 lg:mb-10 ml-2">
+                    <Maximize className="w-3.5 h-3.5 lg:w-5 lg:h-5" /> Specific Dimensions
                   </label>
-                  <div className="flex gap-4">
+                  <div className="flex gap-4 lg:gap-6">
                     <div className="flex-1 relative">
                        <input
                         type="number" placeholder="Width"
                         value={width ?? ''}
                         onChange={(e) => setWidth(e.target.value ? parseInt(e.target.value) : undefined)}
-                        className="w-full px-6 py-4 bg-gray-50 border-2 border-gray-100 rounded-2xl text-sm font-bold focus:border-blue-300 outline-none"
+                        className="w-full px-6 lg:px-10 py-4 lg:py-6 bg-gray-50 border-2 border-gray-100 rounded-2xl lg:rounded-[2rem] text-sm lg:text-xl font-bold focus:border-blue-300 outline-none"
                       />
-                      <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] font-black text-gray-300">W</span>
+                      <span className="absolute right-4 lg:right-6 top-1/2 -translate-y-1/2 text-[10px] lg:text-xs font-black text-gray-300">W</span>
                     </div>
                     <div className="flex-1 relative">
                        <input
                         type="number" placeholder="Height"
                         value={height ?? ''}
                         onChange={(e) => setHeight(e.target.value ? parseInt(e.target.value) : undefined)}
-                        className="w-full px-6 py-4 bg-gray-50 border-2 border-gray-100 rounded-2xl text-sm font-bold focus:border-blue-300 outline-none"
+                        className="w-full px-6 lg:px-10 py-4 lg:py-6 bg-gray-50 border-2 border-gray-100 rounded-2xl lg:rounded-[2rem] text-sm lg:text-xl font-bold focus:border-blue-300 outline-none"
                       />
-                      <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] font-black text-gray-300">H</span>
+                      <span className="absolute right-4 lg:right-6 top-1/2 -translate-y-1/2 text-[10px] lg:text-xs font-black text-gray-300">H</span>
                     </div>
                   </div>
                 </section>
 
                 {/* Tags Tags Tags */}
                 <section>
-                  <label className="text-xs font-black uppercase tracking-[.2em] text-purple-400 block mb-4 ml-2">Personality & Tags</label>
-                  <div className="flex flex-wrap gap-2">
+                  <label className="text-xs lg:text-base font-black uppercase tracking-[.2em] text-purple-400 block mb-4 lg:mb-6 ml-2">Personality & Tags</label>
+                  <div className="flex flex-wrap gap-2 lg:gap-3">
                     <button
                       onClick={() => setSelectedTag('')}
-                      className={`px-4 py-2 rounded-xl text-xs font-black transition-all ${
+                      className={`px-4 lg:px-6 py-2 lg:py-3 rounded-xl lg:rounded-2xl text-xs lg:text-base font-black transition-all ${
                         selectedTag === '' ? 'bg-purple-600 text-white shadow-md' : 'bg-purple-50 text-purple-400'
                       }`}
                     >
@@ -288,7 +288,7 @@ export default function FilterBar({ onApplyFilters, isLoading, isOpen, setIsOpen
                       <button
                         key={tag}
                         onClick={() => setSelectedTag(tag)}
-                        className={`px-4 py-2 rounded-xl text-xs font-black transition-all ${
+                        className={`px-4 lg:px-6 py-2 lg:py-3 rounded-xl lg:rounded-2xl text-xs lg:text-base font-black transition-all ${
                           selectedTag === tag ? 'bg-pink-500 text-white shadow-md' : 'bg-pink-50 text-pink-500'
                         }`}
                       >
@@ -300,33 +300,33 @@ export default function FilterBar({ onApplyFilters, isLoading, isOpen, setIsOpen
 
                 {/* Custom Text */}
                 <section>
-                  <label className="text-xs font-black uppercase tracking-[.2em] text-purple-400 block mb-4 ml-2">Captions</label>
+                  <label className="text-xs lg:text-base font-black uppercase tracking-[.2em] text-purple-400 block mb-4 lg:mb-6 ml-2">Captions</label>
                   <div className="relative">
                     <input
                       type="text" placeholder="Cat says something..."
                       value={customText}
                       onChange={(e) => setCustomText(e.target.value)}
-                      className="w-full px-6 py-4 bg-purple-50/50 border-2 border-purple-100 rounded-2xl text-sm font-bold text-purple-900 focus:border-purple-300 focus:bg-white outline-none transition-all"
+                      className="w-full px-6 lg:px-10 py-4 lg:py-6 bg-purple-50/50 border-2 border-purple-100 rounded-2xl lg:rounded-[2rem] text-sm lg:text-xl font-bold text-purple-900 focus:border-purple-300 focus:bg-white outline-none transition-all"
                     />
                     {customText && (
-                      <button onClick={() => setCustomText('')} className="absolute right-4 top-1/2 -translate-y-1/2 text-purple-300"><X size={16} /></button>
+                      <button onClick={() => setCustomText('')} className="absolute right-4 lg:right-6 top-1/2 -translate-y-1/2 text-purple-300"><X className="w-4 h-4 lg:w-6 lg:h-6" /></button>
                     )}
                   </div>
                 </section>
               </div>
 
               {/* Actions Footer */}
-              <div className="absolute bottom-0 inset-x-0 p-8 bg-white/90 backdrop-blur-md border-t border-purple-50 flex gap-4 z-20">
+              <div className="absolute bottom-0 inset-x-0 p-8 lg:p-12 bg-white/90 backdrop-blur-md border-t border-purple-50 flex gap-4 lg:gap-6 z-20">
                 <button
                   onClick={handleReset}
-                  className="flex-1 py-4 bg-gray-100 text-gray-500 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-gray-200 transition-colors flex items-center justify-center gap-2"
+                  className="flex-1 py-4 lg:py-6 bg-gray-100 text-gray-500 rounded-2xl lg:rounded-[2rem] font-black text-xs lg:text-base uppercase tracking-widest hover:bg-gray-200 transition-colors flex items-center justify-center gap-2 lg:gap-3"
                 >
-                  <RotateCcw size={16} /> Reset
+                  <RotateCcw className="w-4 h-4 lg:w-6 lg:h-6" /> Reset
                 </button>
                 <button
                   onClick={handleApply}
                   disabled={isLoading}
-                  className="flex-[2] py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-2xl font-black text-xs uppercase tracking-[0.2em] shadow-xl hover:translate-y-[-2px] active:translate-y-0 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+                  className="flex-[2] py-4 lg:py-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-2xl lg:rounded-[2rem] font-black text-xs lg:text-base uppercase tracking-[0.2em] shadow-xl hover:translate-y-[-2px] active:translate-y-0 transition-all disabled:opacity-50 flex items-center justify-center gap-2 lg:gap-3"
                 >
                   {isLoading ? 'Summoning...' : 'Fetch Kitties'}
                 </button>

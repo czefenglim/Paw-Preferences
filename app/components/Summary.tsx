@@ -52,17 +52,17 @@ export default function Summary({ likedCats, totalCats, onRestart }: SummaryProp
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-12"
+          className="text-center mb-8"
         >
-          <h1 className="text-5xl md:text-7xl font-black mb-4 gradient-text drop-shadow-sm tracking-tight">
+          <h1 className="text-4xl md:text-6xl font-black mb-3 gradient-text drop-shadow-sm tracking-tight">
             Purr-fect Matches!
           </h1>
-          <p className="text-xl text-purple-600 font-bold mb-8">
-            You've found your new best friends 🐾
+          <p className="text-lg text-purple-600 font-bold mb-6">
+            You&apos;ve found your new best friends 🐾
           </p>
 
           {/* Statistics Grid */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-10">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5 mb-8">
             <StatCard 
               icon={<Heart className="text-pink-500" fill="currentColor" />} 
               value={likedCats.length} 
@@ -94,7 +94,7 @@ export default function Summary({ likedCats, totalCats, onRestart }: SummaryProp
             whileHover={{ scale: 1.05, rotate: 1 }}
             whileTap={{ scale: 0.95 }}
             onClick={onRestart}
-            className="group inline-flex items-center gap-3 bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 text-white px-10 py-5 rounded-full font-black text-xl shadow-2xl hover:shadow-purple-200 transition-all"
+            className="group inline-flex items-center gap-2.5 bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 text-white px-8 py-4 rounded-full font-black text-lg shadow-2xl hover:shadow-purple-200 transition-all"
           >
             <RefreshCw className="group-hover:rotate-180 transition-transform duration-700" />
             Find More Kitties!
@@ -243,15 +243,15 @@ function StatCard({ icon, value, label, color }: { icon: React.ReactNode, value:
   return (
     <motion.div 
       whileHover={{ y: -5 }}
-      className="bg-white rounded-[2.5rem] p-8 shadow-xl border-4 border-white glass flex flex-col items-center"
+      className="bg-white rounded-[2rem] p-6 shadow-xl border-4 border-white glass flex flex-col items-center"
     >
-      <div className="w-14 h-14 rounded-2xl bg-white shadow-inner flex items-center justify-center mb-4 border border-gray-50">
+      <div className="w-12 h-12 rounded-xl bg-white shadow-inner flex items-center justify-center mb-3 border border-gray-50">
         {icon}
       </div>
-      <div className={`text-5xl font-black mb-2 bg-gradient-to-br ${color} bg-clip-text text-transparent`}>
+      <div className={`text-4xl font-black mb-1 bg-gradient-to-br ${color} bg-clip-text text-transparent`}>
         {value}
       </div>
-      <div className="text-xs font-black uppercase tracking-widest text-gray-400">
+      <div className="text-[10px] font-black uppercase tracking-widest text-gray-400">
         {label}
       </div>
     </motion.div>

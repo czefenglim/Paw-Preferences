@@ -28,8 +28,8 @@ export async function fetchCats(
     } = options;
 
     // Use a random skip value if skip is 0 to ensure randomness across sessions
-    // Cataas has thousands of cats, skip=random(0-1000) is safe
-    const effectiveSkip = skip === 0 ? Math.floor(Math.random() * 1000) : skip;
+    // For tagged requests, we use skip=0 to ensure we don't miss tags with very few entries
+    const effectiveSkip = skip === 0 ? (tag ? 0 : Math.floor(Math.random() * 1000)) : skip;
 
     const tagParam = tag ? `tags=${tag}` : '';
     const skipParam = `skip=${effectiveSkip}`;
@@ -55,14 +55,17 @@ export async function fetchCats(
       const params = new URLSearchParams();
       
       // Determine filter mode
-      if (brightness || lightness || saturation || hue) {
+      const isCustomFilter = 
+        brightness !== undefined || lightness !== undefined || 
+        saturation !== undefined || hue !== undefined ||
+        red !== undefined || green !== undefined || blue !== undefined;
+
+      if (isCustomFilter) {
         params.append('filter', 'custom');
         if (brightness !== undefined) params.append('brightness', brightness.toString());
         if (lightness !== undefined) params.append('lightness', lightness.toString());
         if (saturation !== undefined) params.append('saturation', saturation.toString());
         if (hue !== undefined) params.append('hue', hue.toString());
-      } else if (red !== undefined || green !== undefined || blue !== undefined) {
-        params.append('filter', 'custom');
         if (red !== undefined) params.append('r', red.toString());
         if (green !== undefined) params.append('g', green.toString());
         if (blue !== undefined) params.append('b', blue.toString());

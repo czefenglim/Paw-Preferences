@@ -25,6 +25,7 @@ const loadedImages = new Set<string>();
 
 const CatCard = forwardRef<CatCardHandle, CatCardProps>(({ cat, onSwipe, isTopCard = false }, ref) => {
   const [imageLoaded, setImageLoaded] = useState(loadedImages.has(cat.url));
+  const [imageError, setImageError] = useState(false);
   const x = useMotionValue(0);
   const imgRef = useRef<HTMLImageElement>(null);
   
@@ -64,6 +65,12 @@ const CatCard = forwardRef<CatCardHandle, CatCardProps>(({ cat, onSwipe, isTopCa
   const handleLoad = () => {
     loadedImages.add(cat.url);
     setImageLoaded(true);
+    setImageError(false);
+  };
+
+  const handleError = () => {
+    setImageError(true);
+    setImageLoaded(true); // Stop showing the spinner
   };
 
   useEffect(() => {
@@ -75,10 +82,11 @@ const CatCard = forwardRef<CatCardHandle, CatCardProps>(({ cat, onSwipe, isTopCa
 
     // Reset image loaded state for new cats
     setImageLoaded(false);
+    setImageError(false);
 
     // Safety timeout: If image doesn't load in 10 seconds, clear the loader anyway
     const timer = setTimeout(() => {
-      setImageLoaded(true);
+      if (!imageLoaded) setImageLoaded(true);
     }, 10000);
 
     return () => clearTimeout(timer);
@@ -96,18 +104,27 @@ const CatCard = forwardRef<CatCardHandle, CatCardProps>(({ cat, onSwipe, isTopCa
         transition: { type: 'spring', stiffness: 400, damping: 15 }
       } : {}}
       whileTap={isTopCard ? { scale: 1.02, cursor: 'grabbing' } : {}}
-      className={`absolute inset-0 m-auto w-full max-w-[340px] h-full ${
-        isTopCard ? 'z-20 cursor-grab' : 'z-10 scale-95 opacity-80 translate-y-4'
+      className={`absolute inset-0 m-auto w-full max-w-[300px] h-full ${
+        isTopCard ? 'z-20 cursor-grab' : 'z-10 scale-95 opacity-80 translate-y-3'
       }`}
       transition={{ type: 'spring', stiffness: 300, damping: 30 }}
     >
-      <div className="relative w-full h-full bg-white rounded-[2.5rem] shadow-2xl overflow-hidden border-4 border-white shadow-purple-200/50">
+      <div className="relative w-full h-full bg-white rounded-[2rem] shadow-2xl overflow-hidden border-4 border-white shadow-purple-200/50 text-center">
         {/* Loading Spinner */}
         {!imageLoaded && (
           <div className="absolute inset-0 bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50 flex flex-col items-center justify-center z-50">
-            <div className="text-6xl animate-bounce mb-4">🐱</div>
-            <div className="spinner"></div>
-            <p className="mt-4 text-purple-600 font-bold animate-pulse text-shadow">Meow is loading...</p>
+            <div className="text-5xl animate-bounce mb-3">🐱</div>
+            <div className="spinner w-10 h-10 border-4"></div>
+            <p className="mt-3 text-purple-600 font-bold animate-pulse text-sm">Meow is loading...</p>
+          </div>
+        )}
+
+        {/* Error State */}
+        {imageError && (
+          <div className="absolute inset-0 bg-gradient-to-br from-red-50 to-pink-50 flex flex-col items-center justify-center z-50 p-6">
+            <div className="text-6xl mb-4">😿</div>
+            <h3 className="text-xl font-black text-red-900 mb-2">Meow Error!</h3>
+            <p className="text-red-500 font-bold text-sm">This specific combination of filters seems too complex for the cat dimension. Try resetting!</p>
           </div>
         )}
 
@@ -120,53 +137,54 @@ const CatCard = forwardRef<CatCardHandle, CatCardProps>(({ cat, onSwipe, isTopCa
             imageLoaded ? 'opacity-100' : 'opacity-0'
           }`}
           onLoad={handleLoad}
+          onError={handleError}
         />
 
         {/* LIKE OVERLAY */}
         <motion.div 
           style={{ opacity: likeOpacity }}
-          className="absolute top-32 left-8 border-8 border-green-500 rounded-2xl px-6 py-2 rotate-[-15deg] pointer-events-none z-30"
+          className="absolute top-24 left-6 border-4 border-green-500 rounded-xl px-4 py-1 rotate-[-15deg] pointer-events-none z-30"
         >
-          <span className="text-5xl font-black text-green-500 drop-shadow-md">LIKE ❤️</span>
+          <span className="text-3xl font-black text-green-500 drop-shadow-md">LIKE ❤️</span>
         </motion.div>
 
         {/* DISLIKE OVERLAY */}
         <motion.div 
           style={{ opacity: dislikeOpacity }}
-          className="absolute top-32 right-8 border-8 border-red-500 rounded-2xl px-6 py-2 rotate-[15deg] pointer-events-none z-30"
+          className="absolute top-24 right-6 border-4 border-red-500 rounded-xl px-4 py-1 rotate-[15deg] pointer-events-none z-30"
         >
-          <span className="text-5xl font-black text-red-500 drop-shadow-md">NOPE ❌</span>
+          <span className="text-3xl font-black text-red-500 drop-shadow-md">NOPE ❌</span>
         </motion.div>
 
         {/* FLOATING INFO BADGE (TOP) */}
-        <div className="absolute top-6 left-6 right-6 z-40">
+        <div className="absolute top-4 left-4 right-4 z-40">
           <motion.div 
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            className="p-4 bg-white/70 backdrop-blur-2xl rounded-[2rem] border border-white/60 shadow-xl flex items-center justify-between"
+            className="p-3 bg-white/70 backdrop-blur-2xl rounded-[1.5rem] border border-white/60 shadow-xl flex items-center justify-between"
           >
             <div className="flex flex-col">
-              <h3 className="text-xl font-black text-purple-900 tracking-tight flex items-center gap-2 text-shadow-sm">
-                Kitty Discovery <Sparkles size={18} className="text-pink-500 fill-pink-500" />
+              <h3 className="text-lg font-black text-purple-900 tracking-tight flex items-center gap-1.5 text-shadow-sm">
+                Kitty Discovery <Sparkles size={16} className="text-pink-500 fill-pink-500" />
               </h3>
-              <div className="flex flex-wrap gap-1 mt-1.5">
+              <div className="flex flex-wrap gap-1 mt-1">
                 {cat.tags && cat.tags.length > 0 ? (
                   cat.tags.slice(0, 3).map((tag, i) => (
                     <span 
                       key={i} 
-                      className="px-2.5 py-1 bg-pink-500/10 text-pink-600 rounded-full text-[10px] font-black uppercase tracking-wider border border-pink-500/5"
+                      className="px-2 py-0.5 bg-pink-500/10 text-pink-600 rounded-full text-[9px] font-black uppercase tracking-wider border border-pink-500/5"
                     >
                       #{tag}
                     </span>
                   ))
                 ) : (
-                  <span className="px-2.5 py-1 bg-purple-500/10 text-purple-600 rounded-full text-[10px] font-black uppercase tracking-wider border border-purple-500/5">
+                  <span className="px-2 py-0.5 bg-purple-500/10 text-purple-600 rounded-full text-[9px] font-black uppercase tracking-wider border border-purple-500/5">
                     #Cute #Kitty
                   </span>
                 )}
               </div>
             </div>
-            <div className="bg-gradient-to-br from-pink-500 to-purple-600 text-white w-10 h-10 rounded-xl flex items-center justify-center font-black text-xs shadow-lg rotate-6 border-2 border-white/20">
+            <div className="bg-gradient-to-br from-pink-500 to-purple-600 text-white w-8 h-8 rounded-lg flex items-center justify-center font-black text-[10px] shadow-lg rotate-6 border-2 border-white/20">
               {cat.id.substring(0, 2).toUpperCase()}
             </div>
           </motion.div>

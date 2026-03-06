@@ -62,7 +62,7 @@ html {
     transform: translateY(0px);
   }
   50% {
-    transform: translateY(-20px);
+    transform: translateY(-10px);
   }
 }
 
@@ -237,7 +237,7 @@ html {
 /* Responsive adjustments */
 @media (max-width: 640px) {
   body {
-    font-size: 14px;
+    font-size: 13px;
   }
 }
 
