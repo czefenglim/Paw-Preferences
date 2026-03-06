@@ -249,7 +249,7 @@ export default function Home() {
       </main>
 
       {/* Floating Music & System Audio */}
-      <MusicPlayer />
+      {!isFilterOpen && <MusicPlayer />}
       <audio ref={flipSoundRef} src="/flip.mp3" preload="auto" />
       
     </div>
