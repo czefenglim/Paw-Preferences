@@ -34,7 +34,7 @@ We've adopted a **Glassmorphism** aesthetic, utilizing deep backdrop blurs, semi
 ### 1. Immserive Discovery (Swiping)
 The heart of the experience is the Tinder-style discovery stack. Users can swipe left to "Nope" a kitty or right to "Like". The stack handles rapid interaction with pop-layout animations.
 
-![Main Page Swiping](./public/main%20page.jpeg)
+<img src="./public/main%20page.jpeg" alt="Main Page Swiping" width="400" />
 
 ### 2. Advanced Cat Customizer (Filters)
 The discovery experience is fully customizable. Through the "Cat Customizer" modal, users can apply:
@@ -44,22 +44,22 @@ The discovery experience is fully customizable. Through the "Cat Customizer" mod
 - **Dimensions & Text**: Request specific image sizes or add custom captions.
 - **Tags**: Filter by personality (e.g., #cute, #funny, #orange).
 
-![Filter Modal](./public/filter%20modal.jpeg)
+<img src="./public/filter%20modal.jpeg" alt="Filter Modal" width="500" />
 
 ### 3. Session Statistics
 At the end of each session, the app compiles a comprehensive dashboard. It tracks your "Love Rate" (percentage of likes) and breaks down your activity across the session.
 
-![Summary Stats](./public/summary_stats.jpeg)
+<img src="./public/summary_stats.jpeg" alt="Summary Stats" width="500" />
 
 ### 4. Personal Collection
 All your "Liked" cats are automatically saved into a beautiful grid collection. Each cat is presented with its unique ID and tags.
 
-![Summary Collection](./public/summary-collection.jpeg)
+<img src="./public/summary-collection.jpeg" alt="Summary Collection" width="600" />
 
 ### 5. Detailed View & Download
 Clicking on any cat in your collection opens a full-screen, high-definition view. From here, you can see the kitty in all its glory and download the image directly to your device.
 
-![Cat Details](./public/cat_details.jpeg)
+<img src="./public/cat_details.jpeg" alt="Cat Details" width="500" />
 
 ### 🎵 Ambience: The Music Player
 To create the perfect discovery vibe, we've included a floating Music Player. Featuring smooth volume transitions and a play/pause toggle, it provides a curated lo-fi soundtrack that fits the "discovery" aesthetic perfectly. For a focused experience, the player intelligently hides itself when you're deep in the customization menus.
